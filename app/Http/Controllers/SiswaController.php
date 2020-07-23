@@ -53,16 +53,17 @@ class SiswaController extends Controller
         $nomor_nik = $request->input('nomor_nik');
         $nomor_kk = $request->input('nomor_kk');
         $foto = $request->input('foto');
-
+        
         if($request->hasFile('foto')){
             $foto = $request->file('foto');
             $ext = $foto->getClientOriginalExtension();
-
+            $siswa = new \App\Siswa();
             if ($request->file('foto')->isValid()) {
                 $foto_name = date('YmdHis'). ".$ext";
-                $upload_path = 'public/image/';
+                $upload_path = 'image/';
                 $request->file('foto')->move($upload_path, $foto_name);
                 $input['foto'] = $foto_name;
+                $siswa->foto = $foto_name;
             }
         }
 
@@ -81,7 +82,7 @@ class SiswaController extends Controller
         $siswa->nomor_telpon = $nomor_telpon;
         $siswa->nomor_nik = $nomor_nik;
         $siswa->nomor_kk = $nomor_kk;
-        $siswa->foto = $foto;
+        $siswa->foto = $foto_name;
     
         if($siswa->save()){
             $res['message'] = "Success!";

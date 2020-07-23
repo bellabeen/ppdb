@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
 //siswa
 Route::get('/siswa', 'SiswaController@index');
 Route::get('/siswa/{id}','SiswaController1@show');
